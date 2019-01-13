@@ -1,7 +1,9 @@
+
+const path = require('path')
 const pkg = require('./package')
 
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
 
   /*
   ** Headers of the page
@@ -21,12 +23,19 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#444' },
 
   /*
   ** Global CSS
   */
   css: [
+    path.resolve(
+      __dirname,
+      'node_modules',
+      'font-awesome',
+      'scss',
+      'font-awesome.scss'
+    )
   ],
 
   /*
@@ -53,13 +62,35 @@ module.exports = {
   },
 
   auth: {
-    // Options
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/dashboard'
+    },
+    strategies: {
+      google: {
+        client_id: process.env.GOOGLE_CLIENT_ID || '355196905555-gepo947neqf2m9ri70jg2uogs7b9ic4m.apps.googleusercontent.com'
+      },
+      local: {
+        endpoints: {
+          login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/api/auth/logout', method: 'post' },
+          user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+        },
+        // tokenRequired: true,
+        // tokenType: 'bearer',
+      }
+    }
   },
 
   /*
   ** Build configuration
   */
   build: {
+    filenames: {
+      img: ({isDev}) => isDev ? '[path][name].[ext]' : 'img/[name].[ext]',
+    },
     postcss: {
       preset: {
         features: {

@@ -50,16 +50,16 @@
         </div>
       </div>
     </section>
-    <SharedFooter />
+    <shared-footer />
   </div>
 </template>
 
 <script>
-  import Logo from '~/components/Logo.vue'
-  import SharedNavBar from '~/components/SharedNavBar.vue'
-  import SharedFooter from '~/components/SharedFooter'
+import Logo from '~/components/Logo.vue'
+import SharedNavBar from '~/components/SharedNavBar.vue'
+import SharedFooter from '~/components/SharedFooter'
 
-  export default {
+export default {
   components: {
     SharedFooter,
     Logo,
