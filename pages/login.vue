@@ -4,31 +4,12 @@
       <div class="container has-text-centered">
         <div class="column is-4 is-offset-4">
           <h3 class="title has-text-grey">Authentication</h3>
-          <p class="subtitle has-text-grey">Please login to proceed.</p>
+          <p class="subtitle has-text-grey">Please sign in with your Google to proceed.</p>
           <div class="box">
             <figure class="avatar">
               <img src="~/assets/message-lock.jpg">
             </figure>
-            <form>
-              <div class="field">
-                <div class="control">
-                  <input class="input is-large" type="email" placeholder="Your Email" autofocus="">
-                </div>
-              </div>
-
-              <div class="field">
-                <div class="control">
-                  <input class="input is-large" type="password" placeholder="Your Password">
-                </div>
-              </div>
-              <div class="field">
-                <label class="checkbox">
-                  <input type="checkbox">
-                  Remember me
-                </label>
-              </div>
-              <button class="button is-block is-info is-large is-fullwidth">Login</button>
-            </form>
+            <button @click=onClick class="button is-block is-info is-large is-fullwidth">Google</button>
           </div>
           <p class="has-text-grey">
             <a href="../">Sign Up</a> &nbsp;·&nbsp;
@@ -43,11 +24,21 @@
 
 <script>
   export default {
-    asyncData (context) {
-      // called every time before loading the component
-      // as the name said, it can be async
-      // Also, the returned object will be merged with your data object
-      return { name: 'World' }
+    data () {
+      return {
+        email: '',
+        password: ''
+      }
+    },
+    methods: {
+      onClick () {
+        console.log('submit')
+        return this.$auth.loginWith('google')
+          .then(() => {
+            console.log('login success')
+          })
+          .catch(err => console.error('login error', err))
+      }
     }
   }
 </script>
